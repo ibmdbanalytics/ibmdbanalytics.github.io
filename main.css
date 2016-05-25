@@ -10,12 +10,12 @@
 }
 
 .reveal h1 {
-  font-size: 330%;
+  font-size: 360%;
   font-family: 'Lucida'; /* CUSTOM */
 }
 
 .reveal h2 {
-  font-size: 290%;
+  font-size: 320%;
   font-family: 'Lucida'; /* CUSTOM */
 }
 
@@ -46,7 +46,7 @@
   opacity: 1;
 }
 .reveal .slide-number {
-  right: 3.1em;
+  right: 3.9em;
   bottom: 3.9em;
   font-size: 60%;
 }
