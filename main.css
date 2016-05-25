@@ -1,7 +1,7 @@
 /* Reveal-specific */
 .reveal .slides {
   text-align: left;
-  font-size: 110%; /* 160 */
+  font-size: 100%; /* 160 */
   font-family: 'Lucida'; /* CUSTOM */
 }
 
@@ -10,12 +10,12 @@
 }
 
 .reveal h1 {
-  font-size: 320%;
+  font-size: 330%;
   font-family: 'Lucida'; /* CUSTOM */
 }
 
 .reveal h2 {
-  font-size: 280%;
+  font-size: 290%;
   font-family: 'Lucida'; /* CUSTOM */
 }
 
@@ -48,7 +48,7 @@
 .reveal .slide-number {
   right: 3.1em;
   bottom: 3.9em;
-  font-size: 100%;
+  font-size: 60%;
 }
 .reveal .controls div.navigate-left,
 .reveal .controls div.navigate-left.enabled {
