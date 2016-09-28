@@ -9,7 +9,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
-<title>ibmdbpy-show-and-tell-sept26</title>
+<title>ibmdbpy-MA-defense-sept16</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -36,6 +36,7 @@ if( window.location.search.match( /print-pdf/gi ) ) {
 
 <link rel="stylesheet" href="main.css" type="text/css" />
 <link rel="stylesheet" href="custom.css" type="text/css" />
+
 
 <!-- Loading the mathjax macro -->
 <!-- Load mathjax -->
@@ -11903,13 +11904,12 @@ a.anchor-link {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 align="center"> Accelerating Data Analytics with Python and IBM dashDB </h3><p><br><br></p>
-<p><strong>DashDB Show &amp; Tell</strong> 
+<p><h2 align="center">Fast In-Database Feature Selection</h2> 
 <br></p>
+<p><strong>Master thesis</strong><br></p>
 <p>Edouard Fouché<br>
- IBM Böblingen<br>
- <div align = left> <sub> 26/09/2016 </sub> <div>
- <div align = right><img width = 200 src="img/IBM.png"></div></p>
+ KIT / IBM Research &amp; Development<br>
+ <div align = left> <sub> 16/09/2016 </sub> <div></p>
 
 </div>
 </div>
@@ -11919,50 +11919,26 @@ a.anchor-link {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="About-me">About me<a class="anchor-link" href="#About-me">&#182;</a></h1><p><br></p>
-
-</div>
-</div>
-</div></section><section>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><div float = left align=left>
-<img width = 250 src="img/profilpic_c_2.png">
-</div></p>
-<h4 id="Edouard-Fouch&#233;">Edouard Fouch&#233;<a class="anchor-link" href="#Edouard-Fouch&#233;">&#182;</a></h4><ul>
-<li>Graduating from M. Sc. Computer Science at KIT</li>
-<li>Working student @ IBM Böblingen<ul>
-<li>Developing Python tools for in-database analytics</li>
-<li>Interested in Data Mining &amp; Cloud Computing</li>
-</ul>
-</li>
-</ul>
-
-</div>
-</div>
-</div></section></section><section><section>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Outline">Outline<a class="anchor-link" href="#Outline">&#182;</a></h1><ul>
-<li>Motivations<ul>
-<li>Python for data science</li>
+<h2 id="Outline">Outline<a class="anchor-link" href="#Outline">&#182;</a></h2><ul>
+<li>Feature Selection<ul>
+<li>Definition</li>
+<li>Taxonomy</li>
 <li>Limitations</li>
 </ul>
 </li>
-<li>Bringing analytics to the data<ul>
-<li>IBM dashDB</li>
-<li>Python/SQL</li>
-<li>Ibmdbpy</li>
+</ul>
+<ul>
+<li>In-Database Feature Selection <ul>
+<li>What can we map? How?</li>
+<li>Demo</li>
+<li>Heuristics</li>
 </ul>
 </li>
-<li>Demo</li>
-<li>Possible extensions</li>
+</ul>
+<ul>
+<li>Performance Evaluation </li>
+</ul>
+<ul>
 <li>Conclusion/Discussion</li>
 </ul>
 
@@ -11974,37 +11950,52 @@ a.anchor-link {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Motivations">Motivations<a class="anchor-link" href="#Motivations">&#182;</a></h1><p><br></p>
-
+<h2 id="Feature-Selection-:-Definition">Feature Selection : Definition<a class="anchor-link" href="#Feature-Selection-:-Definition">&#182;</a></h2>
 </div>
 </div>
 </div></section><section>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h5 id="What-is-Feature-Selection?">What is Feature Selection?<a class="anchor-link" href="#What-is-Feature-Selection?">&#182;</a></h5><p>Liu and Motoda [1]:<br><br></p>
+<div align = center>
+*“a process that chooses an optimal subset of <br>  
+
+features according to a certain criterion”* 
+</div>
+</div>
+</div>
+</div><div class="fragment">
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <ul>
-<li>The Python ecosystem for Data Science is rich<ul>
-<li>Scipy, Numpy, Pandas</li>
-<li>Scikit-learn</li>
-<li>Matplotlib, Seaborn, Bokeh</li>
-<li>Jupyter notebooks...</li>
+<li>i.e. reduce the dimensionality while optimizing the performance<ul>
+<li>Storage</li>
+<li>Runtime</li>
+<li>Accuracy (<em>curse of dimensionality</em>)</li>
 </ul>
 </li>
 </ul>
 
 </div>
 </div>
-</div>
+</div></div></section><section>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<div align = center>
-<img width = 1000 src="img/logo_stack.png">
-</div>
+<h5 id="What-is-not-Feature-Selection?">What is not Feature Selection?<a class="anchor-link" href="#What-is-not-Feature-Selection?">&#182;</a></h5><ul>
+<li>PCA / SVD</li>
+<li>Feature Engineering</li>
+</ul>
+<p>Feature Selection methods preverse the semantic !</p>
+
 </div>
 </div>
 </div></section><section>
@@ -12013,7 +12004,130 @@ a.anchor-link {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Performance-Limitation">Performance Limitation<a class="anchor-link" href="#Performance-Limitation">&#182;</a></h3><ul>
+<h5 id="Applications">Applications<a class="anchor-link" href="#Applications">&#182;</a></h5><ul>
+<li>Improve accuracy of data mining algorithms</li>
+<li>Reduce costs (Storage, Runtime)</li>
+</ul>
+<ul>
+<li>Text analysis [2]</li>
+<li>Micro-array analysis [3]</li>
+<li>... many more</li>
+</ul>
+
+</div>
+</div>
+</div></section></section><section><section>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Feature-Selection:-Taxonomy">Feature Selection: Taxonomy<a class="anchor-link" href="#Feature-Selection:-Taxonomy">&#182;</a></h2><ul>
+<li>Guyon et. al [4] <ul>
+<li>“An Introduction to Variable and Feature Selection”
+<br><br><div float = center align=center>
+<img width = 450 src="img/taxonomy_common.png">
+</div></li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div></section><section>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h5 id="Remark-1/2">Remark 1/2<a class="anchor-link" href="#Remark-1/2">&#182;</a></h5><ul>
+<li>The taxonomy refers to <em>how</em> the methods operate ...<ul>
+<li>Filters use intrinsic characteristics</li>
+<li>Wrappers use results of learning algorithms</li>
+<li>Embedded methods are part of a learning algorithm</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div><div class="fragment">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>... but not <em>what</em> is done ...<ul>
+<li>Find feature subsets</li>
+<li>Find a rank for all features</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div></div></section><section>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h5 id="Remark-2/2">Remark 2/2<a class="anchor-link" href="#Remark-2/2">&#182;</a></h5><p>Depending on the output, there is a difference in complexity !</p>
+<p>With $n$,  the number of features:</p>
+<ul>
+<li>Find best subsets<ul>
+<li>Number of subsets:$~~2^{n} - 1$
+<br></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Feature Ranking -&gt; Rank features individually<ul>
+<li>linear ($n$) to quadratic ($n^2$)</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div><div class="fragment">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h5 id="Consequence">Consequence<a class="anchor-link" href="#Consequence">&#182;</a></h5><p>The taxonomy does not say anything about the expected complexity</p>
+
+</div>
+</div>
+</div></div></section><section>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3>Alternative taxonomy <br><br></h3>
+<ul>
+<li>An alternative taxonomy might be more appropriate<ul>
+<li>as noticed by Samuel H. Huang in [6]</li>
+</ul>
+</li>
+</ul>
+<p><br></p>
+<div float = center align=center>
+<img width = 850 src="img/taxonomy_refined.png">
+</div>
+</div>
+</div>
+</div></section></section><section><section>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2>Feature Selection: Limitations  <br><br></h2>
+<h5 id="Performance">Performance<a class="anchor-link" href="#Performance">&#182;</a></h5><ul>
 <li>CPU, RAM</li>
 <li>Laptop / Workstation</li>
 </ul>
@@ -12037,10 +12151,10 @@ a.anchor-link {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Data-Extraction">Data Extraction<a class="anchor-link" href="#Data-Extraction">&#182;</a></h3><ul>
+<h5 id="Data-Extraction">Data Extraction<a class="anchor-link" href="#Data-Extraction">&#182;</a></h5><ul>
 <li>Data is typically stored in data warehouses</li>
 <li>Big data volumes are impractical to extract</li>
-<li>What if the data is sensitive?</li>
+<li>What if the information is sensitive? </li>
 </ul>
 
 </div>
@@ -12056,13 +12170,14 @@ a.anchor-link {
 </div>
 </div>
 </div>
-</div></section><section>
+</div></section></section><section><section>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="In-Database-computation">In-Database computation<a class="anchor-link" href="#In-Database-computation">&#182;</a></h3><p>Advantageous for several reasons:</p>
+<h2>In-Database Feature Selection <br><br></h2>
+<p>In-database computation is advantageous:</p>
 <ul>
 <li>Databases are everywhere !</li>
 <li>Efficiency and scalability</li>
@@ -12078,33 +12193,76 @@ a.anchor-link {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><div align = left>
-<img width = 600 src="img/bluemix_dash.png">
-</div></p>
-<ul>
-<li>Cloud-based data warehousing system<ul>
-<li>Optimized for analytics and data mining</li>
+<h3 id="What-can-we-map?">What can we map?<a class="anchor-link" href="#What-can-we-map?">&#182;</a></h3><ul>
+<li><em>Wrappers</em> require (efficient) learning algorithms</li>
+<li>Same problem for <em>Embedded</em> methods</li>
 </ul>
-</li>
-<li>Integrates BLU technology<ul>
-<li>Data compression</li>
-<li>In-memory column store</li>
-<li>Massive Parallel Processing (MPP) scale-out</li>
+
+</div>
+</div>
+</div><div class="fragment">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li><em>Filters</em>  seem eligible for mapping in database<ul>
+<li>Especially univariate filters (low complexity)</li>
 </ul>
 </li>
 </ul>
 
 </div>
 </div>
-</div></section><section>
+</div></div><div class="fragment">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li><strong>Idea</strong>: Implement fast univariate filters<ul>
+<li>Enable fast retrieving of correlation matrices</li>
+<li>Used as heuristic for multivariate methods [5]</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div></div></section><section>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div align = center>
-<img width = 750 src="img/workflow_simple.png">
+<img width = 1000 src="img/taxonomy_refined_implemented.png">
 </div>
+</div>
+</div>
+</div></section></section><section><section>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="How-to-map-Feature-Selection-algorithms">How to map Feature Selection algorithms<a class="anchor-link" href="#How-to-map-Feature-Selection-algorithms">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>First attempt</strong></p>
+<div align = center>
+<img width = 250 src="img/workflow_simple.png">
+</div>
+<br>
+<div align = center>But this is problematic... why? </div>
 </div>
 </div>
 </div></section><section>
@@ -12149,19 +12307,7 @@ a.anchor-link {
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">ibmdbpy.sampledata</span> <span class="k">import</span> <span class="n">iris</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">iris</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;species&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">iris</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;species&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
 </pre></div>
 
 </div>
@@ -12172,7 +12318,7 @@ a.anchor-link {
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[2]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[1]:</div>
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 <div>
@@ -12225,33 +12371,21 @@ a.anchor-link {
 </div>
 </div>
 
-</div><aside class="notes">
-
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[3]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Alternatively: iris.groupby(&quot;species&quot;).mean() </span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-</aside></div></section><section>
+</div></div></section><section>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div align = center>
-<img width = 750 src="img/workflow_principle.png">
+<img width = 300 src="img/workflow_principle.png">
+</div><p><br></p>
+<div align = center>
+Automatic generation of SQL from high-level syntax</div>
 </div>
 </div>
-</div>
-</div></section><section>
+</div><aside class="notes">
+
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -12265,6 +12399,37 @@ a.anchor-link {
 <li><p>Everything happens transparently</p>
 </li>
 </ul>
+<p><br></p>
+<h5 id="In-our-case:">In our case:<a class="anchor-link" href="#In-our-case:">&#182;</a></h5><p>We work with IBM dashDB</p>
+<ul>
+<li>Cloud-based database optimized for analytics</li>
+<li>Column-oriented</li>
+<li>Massive Parallel Processing (MPP) scale-out</li>
+</ul>
+
+</div>
+</div>
+</div>
+</aside></section><section>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Outcome-of-the-thesis">Outcome of the thesis<a class="anchor-link" href="#Outcome-of-the-thesis">&#182;</a></h3><ul>
+<li>Fast in-database computation of correlation matrices<ul>
+<li>Pearson, Spearman Rho</li>
+<li>T-statistics, Chi-squared</li>
+<li>Gini index</li>
+<li>Entropy-based correlation<ul>
+<li>Mutual information / Information gain</li>
+<li>Gain ratio </li>
+<li>Symmetric uncertainty</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 
 </div>
 </div>
@@ -12274,24 +12439,42 @@ a.anchor-link {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<div align = center>
-<img width = 800 src="img/top10-analytics-data-mining-software-2015_2.png">
-</div><p>source: kdnuggets.com</p>
+<h3 id="Example:-Entropy">Example: Entropy<a class="anchor-link" href="#Example:-Entropy">&#182;</a></h3><p><br></p>
+<p>A measure of uncertainty of a random variable</p>
+<p><br></p>
+$$H(X) = - \sum_{i} p_{i} *log_{2}(p_{i})$$<p><br></p>
+<p>where $p_{i}$  the prior probability for each class $i$  of attribute $X$.</p>
 
 </div>
 </div>
-</div></section></section><section><section>
+</div></section><section>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="ibmdbpy">ibmdbpy<a class="anchor-link" href="#ibmdbpy">&#182;</a></h1><ul>
-<li>Pandas-like interface for IBM dashDB</li>
-<li>Compatible from Python 2.7 up to 3.5</li>
-<li>ODBC or JDBC connection (cross-platform)</li>
-</ul>
-
+<h5 id="SQL-Pushdown-operations">SQL-Pushdown operations<a class="anchor-link" href="#SQL-Pushdown-operations">&#182;</a></h5><p><br></p>
+<p>Compute the entropy value of an attribute:</p>
+<p><br></p>
+<div align = left>
+<img width = 1050 src="img/entropy_pushdown_m.png">
+</div><p>where <font face='Courier New'><b> @nrows </b></font> is obtained from:</p>
+<div align = left>
+<img width = 1050 src="img/nrows_pushdown_m.png">
+</div>
+</div>
+</div>
+</div></section><section>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h5 id="Algorithm">Algorithm<a class="anchor-link" href="#Algorithm">&#182;</a></h5><p>Compute the entropy value of an attribute</p>
+<p><br></p>
+<div align = left>
+<img width = 1050 src="img/algo_entropy_m.png">
+</div>
 </div>
 </div>
 </div><div class="fragment">
@@ -12300,32 +12483,17 @@ a.anchor-link {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Provides high-level Python methods for:</p>
-<ul>
-<li>Database administration</li>
-<li>In-Database analytics</li>
-</ul>
+<p>From this result, we can build other algorithms !</p>
 
 </div>
 </div>
-</div></div></section><section>
+</div></div></section></section><section><section>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<div align = center>
-<img width = 630 src="img/workflow_2.png">
-</div>
-</div>
-</div>
-</div></section></section><section><section>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Demo">Demo<a class="anchor-link" href="#Demo">&#182;</a></h1>
+<h2 id="Demo">Demo<a class="anchor-link" href="#Demo">&#182;</a></h2>
 </div>
 </div>
 </div></section><section>
@@ -12334,13 +12502,13 @@ a.anchor-link {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="1:-Connect-to-the-database">1: Connect to the database<a class="anchor-link" href="#1:-Connect-to-the-database">&#182;</a></h2>
+<h3 id="Connect-to-the-database">Connect to the database<a class="anchor-link" href="#Connect-to-the-database">&#182;</a></h3>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">ibmdbpy</span> <span class="k">import</span> <span class="n">IdaDataBase</span>
@@ -12357,44 +12525,13 @@ a.anchor-link {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>IdaDataBase</strong>: abstraction layer for the distant database</p>
-<ul>
-<li><strong>IDA</strong> : <strong>I</strong>n-<strong>D</strong>atabase-<strong>A</strong>nalytics</li>
-</ul>
-
-</div>
-</div>
-</div><div class="fragment">
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<ul>
-<li><strong> Database administration </strong><ul>
-<li>Database lookup</li>
-<li>Upload Pandas.DataFrame as Table</li>
-<li>Download Table as Pandas.DataFrame</li>
-<li>Drop tables, create views...</li>
-</ul>
-</li>
-</ul>
-
-</div>
-</div>
-</div></div></section></section><section><section>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="2:-Open-a-pointer-to-a-table">2: Open a pointer to a table<a class="anchor-link" href="#2:-Open-a-pointer-to-a-table">&#182;</a></h2>
+<h3 id="Open-a-pointer-to-a-table">Open a pointer to a table<a class="anchor-link" href="#Open-a-pointer-to-a-table">&#182;</a></h3>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">ibmdbpy</span> <span class="k">import</span> <span class="n">IdaDataFrame</span>
@@ -12421,47 +12558,9 @@ a.anchor-link {
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<ul>
-<li>An <strong>IdaDataFrame</strong> instance is a pointer to a table in the database</li>
-</ul>
-
-</div>
-</div>
-</div><div class="fragment">
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<ul>
-<li><strong>Data Manipulation</strong><ul>
-<li>Non-destructive data manipulation</li>
-<li>Statistics, filtering, sorting...</li>
-<li>Pandas-like syntax</li>
-</ul>
-</li>
-</ul>
-
-</div>
-</div>
-</div></div></section></section><section><section>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="3:-Conduct-data-analytics">3: Conduct data analytics<a class="anchor-link" href="#3:-Conduct-data-analytics">&#182;</a></h2>
-</div>
-</div>
-</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">iris</span><span class="o">.</span><span class="n">head</span><span class="p">()</span> 
@@ -12482,7 +12581,7 @@ a.anchor-link {
 </div>
 </div>
 
-<div class="output_area"><div class="prompt output_prompt">Out[6]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[4]:</div>
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 <div>
@@ -12554,22 +12653,23 @@ a.anchor-link {
 </div>
 </div>
 
-</div>
+</div></section></section><section><section>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Simple-statistics">Simple statistics<a class="anchor-link" href="#Simple-statistics">&#182;</a></h4>
+<h3 id="Mutual-Information">Mutual Information<a class="anchor-link" href="#Mutual-Information">&#182;</a></h3>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">iris</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">ibmdbpy.feature_selection</span> <span class="k">import</span> <span class="n">info_gain</span>
+<span class="n">info_gain</span><span class="p">(</span><span class="n">iris</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s2">&quot;CLASS&quot;</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -12582,402 +12682,32 @@ a.anchor-link {
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>&gt; SELECT COLNAME, TYPENAME FROM SYSCAT.COLUMNS WHERE TABNAME=&#39;IRIS&#39; AND TABSCHEMA=&#39;DB2INST1&#39; ORDER BY COLNO
-&gt; SELECT CORRELATION(&#34;SEPALLENGTH&#34;,&#34;SEPALWIDTH&#34;), CORRELATION(&#34;SEPALLENGTH&#34;,&#34;PETALLENGTH&#34;), CORRELATION(&#34;SEPALLENGTH&#34;,&#34;PETALWIDTH&#34;), CORRELATION(&#34;SEPALWIDTH&#34;,&#34;PETALLENGTH&#34;), CORRELATION(&#34;SEPALWIDTH&#34;,&#34;PETALWIDTH&#34;), CORRELATION(&#34;PETALLENGTH&#34;,&#34;PETALWIDTH&#34;) FROM DB2INST1.IRIS
-Execution time: 0.21002697944641113 seconds.
+<pre>&gt; SELECT CAST(COUNT(*) AS INTEGER) FROM DB2INST1.IRIS
+&gt; SELECT SUM(-a*LOG(a)) FROM(SELECT COUNT(*) AS a FROM DB2INST1.IRIS GROUP BY &#34;CLASS&#34;)
+&gt; SELECT SUM(-a*LOG(a)) FROM(SELECT COUNT(*) AS a FROM DB2INST1.IRIS GROUP BY &#34;SEPALLENGTH&#34;)
+&gt; SELECT SUM(-a*LOG(a)) FROM(SELECT COUNT(*) AS a FROM DB2INST1.IRIS GROUP BY &#34;CLASS&#34;,&#34;SEPALLENGTH&#34;)
+&gt; SELECT SUM(-a*LOG(a)) FROM(SELECT COUNT(*) AS a FROM DB2INST1.IRIS GROUP BY &#34;SEPALWIDTH&#34;)
+&gt; SELECT SUM(-a*LOG(a)) FROM(SELECT COUNT(*) AS a FROM DB2INST1.IRIS GROUP BY &#34;CLASS&#34;,&#34;SEPALWIDTH&#34;)
+&gt; SELECT SUM(-a*LOG(a)) FROM(SELECT COUNT(*) AS a FROM DB2INST1.IRIS GROUP BY &#34;PETALLENGTH&#34;)
+&gt; SELECT SUM(-a*LOG(a)) FROM(SELECT COUNT(*) AS a FROM DB2INST1.IRIS GROUP BY &#34;CLASS&#34;,&#34;PETALLENGTH&#34;)
+&gt; SELECT SUM(-a*LOG(a)) FROM(SELECT COUNT(*) AS a FROM DB2INST1.IRIS GROUP BY &#34;PETALWIDTH&#34;)
+&gt; SELECT SUM(-a*LOG(a)) FROM(SELECT COUNT(*) AS a FROM DB2INST1.IRIS GROUP BY &#34;CLASS&#34;,&#34;PETALWIDTH&#34;)
+Execution time: 2.656837224960327 seconds.
 </pre>
 </div>
 </div>
 
-<div class="output_area"><div class="prompt output_prompt">Out[7]:</div>
-
-<div class="output_html rendered_html output_subarea output_execute_result">
-<div>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>SEPALLENGTH</th>
-      <th>SEPALWIDTH</th>
-      <th>PETALLENGTH</th>
-      <th>PETALWIDTH</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>SEPALLENGTH</th>
-      <td>1.000000</td>
-      <td>-0.109369</td>
-      <td>0.871754</td>
-      <td>0.817954</td>
-    </tr>
-    <tr>
-      <th>SEPALWIDTH</th>
-      <td>-0.109369</td>
-      <td>1.000000</td>
-      <td>-0.420516</td>
-      <td>-0.356544</td>
-    </tr>
-    <tr>
-      <th>PETALLENGTH</th>
-      <td>0.871754</td>
-      <td>-0.420516</td>
-      <td>1.000000</td>
-      <td>0.962757</td>
-    </tr>
-    <tr>
-      <th>PETALWIDTH</th>
-      <td>0.817954</td>
-      <td>-0.356544</td>
-      <td>0.962757</td>
-      <td>1.000000</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div></section><section>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[8]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">iris</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>&gt; SELECT COUNT(&#34;ID&#34;), COUNT(&#34;SEPALLENGTH&#34;), COUNT(&#34;SEPALWIDTH&#34;), COUNT(&#34;PETALLENGTH&#34;), COUNT(&#34;PETALWIDTH&#34;) FROM DB2INST1.IRIS
-&gt; SELECT AVG(CAST(&#34;ID&#34; AS FLOAT)), AVG(CAST(&#34;SEPALLENGTH&#34; AS FLOAT)), AVG(CAST(&#34;SEPALWIDTH&#34; AS FLOAT)), AVG(CAST(&#34;PETALLENGTH&#34; AS FLOAT)), AVG(CAST(&#34;PETALWIDTH&#34; AS FLOAT)) FROM DB2INST1.IRIS
-&gt; SELECT COUNT(&#34;ID&#34;), COUNT(&#34;SEPALLENGTH&#34;), COUNT(&#34;SEPALWIDTH&#34;), COUNT(&#34;PETALLENGTH&#34;), COUNT(&#34;PETALWIDTH&#34;) FROM DB2INST1.IRIS
-&gt; SELECT STDDEV(&#34;ID&#34;)*(SQRT(150.0)/SQRT(149.0)), STDDEV(&#34;SEPALLENGTH&#34;)*(SQRT(150.0)/SQRT(149.0)), STDDEV(&#34;SEPALWIDTH&#34;)*(SQRT(150.0)/SQRT(149.0)), STDDEV(&#34;PETALLENGTH&#34;)*(SQRT(150.0)/SQRT(149.0)), STDDEV(&#34;PETALWIDTH&#34;)*(SQRT(150.0)/SQRT(149.0)) FROM DB2INST1.IRIS
-&gt; SELECT MIN(&#34;ID&#34;), MIN(&#34;SEPALLENGTH&#34;), MIN(&#34;SEPALWIDTH&#34;), MIN(&#34;PETALLENGTH&#34;), MIN(&#34;PETALWIDTH&#34;) FROM DB2INST1.IRIS
-&gt; SELECT * FROM (SELECT COUNT(*) AS &#34;ID&#34; FROM DB2INST1.IRIS WHERE &#34;ID&#34; IS NULL), (SELECT COUNT(*) AS &#34;SEPALLENGTH&#34; FROM DB2INST1.IRIS WHERE &#34;SEPALLENGTH&#34; IS NULL), (SELECT COUNT(*) AS &#34;SEPALWIDTH&#34; FROM DB2INST1.IRIS WHERE &#34;SEPALWIDTH&#34; IS NULL), (SELECT COUNT(*) AS &#34;PETALLENGTH&#34; FROM DB2INST1.IRIS WHERE &#34;PETALLENGTH&#34; IS NULL), (SELECT COUNT(*) AS &#34;PETALWIDTH&#34; FROM DB2INST1.IRIS WHERE &#34;PETALWIDTH&#34; IS NULL)
-&gt; SELECT CAST(COUNT(*) AS INTEGER) FROM DB2INST1.IRIS
-&gt; (SELECT &#34;ID&#34; AS &#34;ID&#34; FROM (SELECT ROW_NUMBER() OVER(ORDER BY &#34;ID&#34;) as rn, &#34;ID&#34; FROM (SELECT * FROM DB2INST1.IRIS)) WHERE rn  in(38,39,75,76,112,113))
-&gt; (SELECT &#34;SEPALLENGTH&#34; AS &#34;SEPALLENGTH&#34; FROM (SELECT ROW_NUMBER() OVER(ORDER BY &#34;SEPALLENGTH&#34;) as rn, &#34;SEPALLENGTH&#34; FROM (SELECT * FROM DB2INST1.IRIS)) WHERE rn  in(38,39,75,76,112,113))
-&gt; (SELECT &#34;SEPALWIDTH&#34; AS &#34;SEPALWIDTH&#34; FROM (SELECT ROW_NUMBER() OVER(ORDER BY &#34;SEPALWIDTH&#34;) as rn, &#34;SEPALWIDTH&#34; FROM (SELECT * FROM DB2INST1.IRIS)) WHERE rn  in(38,39,75,76,112,113))
-&gt; (SELECT &#34;PETALLENGTH&#34; AS &#34;PETALLENGTH&#34; FROM (SELECT ROW_NUMBER() OVER(ORDER BY &#34;PETALLENGTH&#34;) as rn, &#34;PETALLENGTH&#34; FROM (SELECT * FROM DB2INST1.IRIS)) WHERE rn  in(38,39,75,76,112,113))
-&gt; (SELECT &#34;PETALWIDTH&#34; AS &#34;PETALWIDTH&#34; FROM (SELECT ROW_NUMBER() OVER(ORDER BY &#34;PETALWIDTH&#34;) as rn, &#34;PETALWIDTH&#34; FROM (SELECT * FROM DB2INST1.IRIS)) WHERE rn  in(38,39,75,76,112,113))
-&gt; SELECT MAX(&#34;ID&#34;), MAX(&#34;SEPALLENGTH&#34;), MAX(&#34;SEPALWIDTH&#34;), MAX(&#34;PETALLENGTH&#34;), MAX(&#34;PETALWIDTH&#34;) FROM DB2INST1.IRIS
-Execution time: 1.752722978591919 seconds.
-</pre>
-</div>
-</div>
-
-<div class="output_area"><div class="prompt output_prompt">Out[8]:</div>
-
-<div class="output_html rendered_html output_subarea output_execute_result">
-<div>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>ID</th>
-      <th>SEPALLENGTH</th>
-      <th>SEPALWIDTH</th>
-      <th>PETALLENGTH</th>
-      <th>PETALWIDTH</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>count</th>
-      <td>150.000000</td>
-      <td>150.000000</td>
-      <td>150.000000</td>
-      <td>150.000000</td>
-      <td>150.000000</td>
-    </tr>
-    <tr>
-      <th>mean</th>
-      <td>75.500000</td>
-      <td>5.843333</td>
-      <td>3.054000</td>
-      <td>3.758667</td>
-      <td>1.198667</td>
-    </tr>
-    <tr>
-      <th>std</th>
-      <td>43.445368</td>
-      <td>0.828066</td>
-      <td>0.433594</td>
-      <td>1.764420</td>
-      <td>0.763161</td>
-    </tr>
-    <tr>
-      <th>min</th>
-      <td>1.000000</td>
-      <td>4.300000</td>
-      <td>2.000000</td>
-      <td>1.000000</td>
-      <td>0.100000</td>
-    </tr>
-    <tr>
-      <th>25%</th>
-      <td>38.500000</td>
-      <td>5.100000</td>
-      <td>2.800000</td>
-      <td>1.600000</td>
-      <td>0.300000</td>
-    </tr>
-    <tr>
-      <th>50%</th>
-      <td>75.500000</td>
-      <td>5.800000</td>
-      <td>3.000000</td>
-      <td>4.350000</td>
-      <td>1.300000</td>
-    </tr>
-    <tr>
-      <th>75%</th>
-      <td>112.500000</td>
-      <td>6.400000</td>
-      <td>3.300000</td>
-      <td>5.100000</td>
-      <td>1.800000</td>
-    </tr>
-    <tr>
-      <th>max</th>
-      <td>150.000000</td>
-      <td>7.900000</td>
-      <td>4.400000</td>
-      <td>6.900000</td>
-      <td>2.500000</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div></section><section>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Data-manipulation">Data manipulation<a class="anchor-link" href="#Data-manipulation">&#182;</a></h4>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[9]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">iris</span> <span class="o">=</span> <span class="n">iris</span><span class="p">[[</span><span class="s2">&quot;ID&quot;</span><span class="p">,</span><span class="s2">&quot;SEPALLENGTH&quot;</span><span class="p">,</span> <span class="s2">&quot;SEPALWIDTH&quot;</span><span class="p">]]</span> 
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[10]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">iris</span><span class="p">[</span><span class="s1">&#39;new&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">iris</span><span class="p">[</span><span class="s1">&#39;SEPALLENGTH&#39;</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">iris</span><span class="p">[</span><span class="s1">&#39;SEPALWIDTH&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> 
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>&gt; CREATE VIEW &#34;TEMP_VIEW_IRIS_89613_1474908989&#34; AS (SELECT &#34;SEPALLENGTH&#34; FROM DB2INST1.IRIS)
-&lt;&lt; AUTOCOMMIT &gt;&gt;
-&gt; SELECT COLNAME, TYPENAME FROM SYSCAT.COLUMNS WHERE TABNAME=&#39;TEMP_VIEW_IRIS_89613_1474908989&#39; ORDER BY COLNO
-&gt; DROP VIEW &#34;TEMP_VIEW_IRIS_89613_1474908989&#34;
-&lt;&lt; AUTOCOMMIT &gt;&gt;
-&gt; CREATE VIEW &#34;TEMP_VIEW_IRIS_13064_1474908989&#34; AS (SELECT &#34;SEPALWIDTH&#34; FROM DB2INST1.IRIS)
-&lt;&lt; AUTOCOMMIT &gt;&gt;
-&gt; SELECT COLNAME, TYPENAME FROM SYSCAT.COLUMNS WHERE TABNAME=&#39;TEMP_VIEW_IRIS_13064_1474908989&#39; ORDER BY COLNO
-&gt; DROP VIEW &#34;TEMP_VIEW_IRIS_13064_1474908989&#34;
-&lt;&lt; AUTOCOMMIT &gt;&gt;
-&gt; SELECT AVG(CAST(&#34;SEPALWIDTH&#34; AS FLOAT)) FROM (SELECT &#34;SEPALWIDTH&#34; FROM DB2INST1.IRIS)
-Execution time: 0.26253414154052734 seconds.
-&gt; CREATE VIEW &#34;TEMP_VIEW_IRIS_71822_1474908990&#34; AS (SELECT ( POWER(&#34;SEPALLENGTH&#34;,2)) AS &#34;SEPALLENGTH&#34; FROM DB2INST1.IRIS)
-&lt;&lt; AUTOCOMMIT &gt;&gt;
-&gt; SELECT COLNAME, TYPENAME FROM SYSCAT.COLUMNS WHERE TABNAME=&#39;TEMP_VIEW_IRIS_71822_1474908990&#39; ORDER BY COLNO
-&gt; DROP VIEW &#34;TEMP_VIEW_IRIS_71822_1474908990&#34;
-&lt;&lt; AUTOCOMMIT &gt;&gt;
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[11]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">iris</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>&gt; SELECT * FROM (SELECT &#34;ID&#34;,&#34;SEPALLENGTH&#34;,&#34;SEPALWIDTH&#34;,(( POWER(&#34;SEPALLENGTH&#34;,2)) + 3.054) AS &#34;new&#34; FROM DB2INST1.IRIS) ORDER BY &#34;ID&#34; ASC FETCH FIRST 5 ROWS ONLY
-</pre>
-</div>
-</div>
-
-<div class="output_area"><div class="prompt output_prompt">Out[11]:</div>
-
-<div class="output_html rendered_html output_subarea output_execute_result">
-<div>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>ID</th>
-      <th>SEPALLENGTH</th>
-      <th>SEPALWIDTH</th>
-      <th>new</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>1</td>
-      <td>5.1</td>
-      <td>3.5</td>
-      <td>29.064</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>2</td>
-      <td>4.9</td>
-      <td>3.0</td>
-      <td>27.064</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>3</td>
-      <td>4.7</td>
-      <td>3.2</td>
-      <td>25.144</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>4</td>
-      <td>4.6</td>
-      <td>3.1</td>
-      <td>24.214</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>5</td>
-      <td>5.0</td>
-      <td>3.6</td>
-      <td>28.054</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div></section><section>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Remark:-Data-stays-in-the-database">Remark: Data stays in the database<a class="anchor-link" href="#Remark:-Data-stays-in-the-database">&#182;</a></h4>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[12]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">iris</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt output_prompt">Out[12]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[5]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;ibmdbpy.frame.IdaDataFrame at 0xa97f208&gt;</pre>
+<pre>PETALLENGTH    1.446317
+PETALWIDTH     1.435898
+SEPALLENGTH    0.876938
+SEPALWIDTH     0.510870
+Name: CLASS, dtype: float64</pre>
 </div>
 
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[13]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">iris</span><span class="o">.</span><span class="n">print</span><span class="p">()</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>SELECT &#34;ID&#34;,&#34;SEPALLENGTH&#34;,&#34;SEPALWIDTH&#34;,(( POWER(&#34;SEPALLENGTH&#34;,2)) + 3.054) AS &#34;new&#34; FROM DB2INST1.IRIS
-</pre>
-</div>
 </div>
 
 </div>
@@ -12989,15 +12719,10 @@ Execution time: 0.26253414154052734 seconds.
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Machine-Learning">Machine Learning<a class="anchor-link" href="#Machine-Learning">&#182;</a></h2><ul>
-<li>IBM dashDB is more than just a database<ul>
-<li>Includes in-database Data Mining algorithms</li>
-<li>Currently available in ibmdbpy : <ul>
-<li>K-means</li>
-<li>Naive Bayes</li>
-<li>Association Rules</li>
-</ul>
-</li>
+<h2 id="Heuristics">Heuristics<a class="anchor-link" href="#Heuristics">&#182;</a></h2><ul>
+<li>Try to speed up the computation<ul>
+<li>Avoid unnecessary computation</li>
+<li>Take advantage of database features</li>
 </ul>
 </li>
 </ul>
@@ -13010,175 +12735,37 @@ Execution time: 0.26253414154052734 seconds.
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="K-means-Clustering">K-means Clustering<a class="anchor-link" href="#K-means-Clustering">&#182;</a></h2><p>Try to find interesting clusters in the data</p>
+<h3 id="Heuristic-n&#176;1:-Symmetric-measures">Heuristic n&#176;1: Symmetric measures<a class="anchor-link" href="#Heuristic-n&#176;1:-Symmetric-measures">&#182;</a></h3><ul>
+<li>Only $\frac{m(m-1)}{2}$ coefficients in the matrix need to be computed<ul>
+<li>where $m$ the number of attributes</li>
+</ul>
+</li>
+</ul>
 <ul>
-<li>Sklearn-like</li>
+<li>Pro: twice faster</li>
+<li>Con: loss of granularity</li>
 </ul>
 
 </div>
 </div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[14]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">ibmdbpy.learn</span> <span class="k">import</span> <span class="n">KMeans</span>
-<span class="n">kmeans</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="c1"># clustering with 3 clusters</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[15]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">iris</span> <span class="o">=</span> <span class="n">IdaDataFrame</span><span class="p">(</span><span class="n">idadb</span><span class="p">,</span> <span class="s2">&quot;IRIS&quot;</span><span class="p">,</span> <span class="n">indexer</span> <span class="o">=</span> <span class="s2">&quot;ID&quot;</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
 </div></section><section>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[16]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">kmeans</span><span class="o">.</span><span class="n">fit_predict</span><span class="p">(</span><span class="n">iris</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>&gt; SELECT COUNT(*) FROM SYSCAT.ROUTINES WHERE ROUTINENAME=&#39;KMEANS&#39; AND ROUTINEMODULENAME = &#39;IDAX&#39;
-&gt; CALL IDAX.KMEANS (&#39;model=&#34;KMEANS_44003_1474908991&#34;,distance=&#34;euclidean&#34;,randseed=12345,intable=IRIS,k=3,idbased=False,id=&#34;ID&#34;,maxiter=5&#39;)
-&lt;&lt; AUTOCOMMIT &gt;&gt;
-&lt;&lt; COMMIT &gt;&gt;
-&gt; SELECT * FROM &#34;DB2INST1&#34;.&#34;KMEANS_44003_1474908991_MODEL&#34;
-&gt; SELECT * FROM &#34;DB2INST1&#34;.&#34;KMEANS_44003_1474908991_COLUMNS&#34;
-&gt; SELECT * FROM &#34;DB2INST1&#34;.&#34;KMEANS_44003_1474908991_COLUMN_STATISTICS&#34;
-&gt; SELECT * FROM &#34;DB2INST1&#34;.&#34;KMEANS_44003_1474908991_CLUSTERS&#34;
-&gt; CALL IDAX.PREDICT_KMEANS (&#39;model=&#34;KMEANS_44003_1474908991&#34;,outtable=&#34;PREDICT_KMEANS_62820_1474909004&#34;,id=&#34;ID&#34;,intable=IRIS&#39;)
-&lt;&lt; AUTOCOMMIT &gt;&gt;
-&lt;&lt; COMMIT &gt;&gt;
-&gt; SELECT distinct TABSCHEMA, TABNAME, OWNER, TYPE from SYSCAT.TABLES WHERE (OWNERTYPE = &#39;U&#39;) ORDER BY &#34;TABSCHEMA&#34;,&#34;TABNAME&#34;
-&gt; SELECT * FROM DB2INST1.PREDICT_KMEANS_62820_1474909004 ORDER BY &#34;ID&#34; ASC FETCH FIRST 5 ROWS ONLY
-</pre>
-</div>
-</div>
-
-<div class="output_area"><div class="prompt output_prompt">Out[16]:</div>
-
-<div class="output_html rendered_html output_subarea output_execute_result">
-<div>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>ID</th>
-      <th>CLUSTER_ID</th>
-      <th>DISTANCE</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>1</td>
-      <td>1</td>
-      <td>0.332119</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>2</td>
-      <td>2</td>
-      <td>0.228125</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>3</td>
-      <td>2</td>
-      <td>0.138505</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>4</td>
-      <td>2</td>
-      <td>0.141902</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>5</td>
-      <td>1</td>
-      <td>0.382005</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div></section><section>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[17]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">kmeans</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>KMeans clustering with 3 clusters of sizes 32, 97, 21
-
-Cluster means: 
-   CLUSTERID  SEPALLENGTH  SEPALWIDTH  PETALLENGTH  PETALWIDTH      CLASS
-0          1     5.209375    3.531250     1.671875    0.353125     setosa
-1          2     4.695238    3.100000     1.395238    0.190476     setosa
-2          3     6.301031    2.886598     4.958763    1.695876  virginica
-
-Within cluster sum of squares by cluster:
-[  22.02570934  170.84912849    2.75907407]
-&gt; CALL IDAX.PRINT_MODEL (&#39;model=&#34;KMEANS_44003_1474908991&#34;&#39;)
-&lt;&lt; AUTOCOMMIT &gt;&gt;
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div></section></section><section><section>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="In-database-Feature-Selection">In-database Feature Selection<a class="anchor-link" href="#In-database-Feature-Selection">&#182;</a></h2>
+<div align = center>
+<img width = 1050 src="img/symmetry_plot.png">
+</div>
+</div>
+</div>
+</div></section><section>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Heuristic-n&#176;2:-Caching-intermediate-results">Heuristic n&#176;2: Caching intermediate results<a class="anchor-link" href="#Heuristic-n&#176;2:-Caching-intermediate-results">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -13188,8 +12775,8 @@ Within cluster sum of squares by cluster:
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <ul>
-<li>Master Thesis: Fast In-Database Feature Selection<ul>
-<li>Mapping feature selection algorithm to databases</li>
+<li>We can use the Python interface to cache results<ul>
+<li>Goal: reduce number of queries required</li>
 </ul>
 </li>
 </ul>
@@ -13203,13 +12790,13 @@ Within cluster sum of squares by cluster:
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <ul>
-<li>Outcome: Efficient approaches for various correlation matrices<ul>
-<li>Pearson</li>
-<li>Chi-squared</li>
-<li>Gini index</li>
-<li>Mutual information</li>
-<li>Gain ratio</li>
-<li>and more...</li>
+<li>Example: Mutual information matrix</li>
+</ul>
+$$I (X,Y) = H(X) + H(Y) - H(X,Y) $$<ul>
+<li>Compute entropy $H(X),\forall X \in M$</li>
+<li><p>Compute joint entropy $H(X,Y),\forall(X,Y)\in M^2$</p>
+<ul>
+<li>$m^2$ instead of $3* m^2$ queries</li>
 </ul>
 </li>
 </ul>
@@ -13217,132 +12804,33 @@ Within cluster sum of squares by cluster:
 </div>
 </div>
 </div></div></section><section>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[18]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">iris</span> <span class="o">=</span> <span class="n">IdaDataFrame</span><span class="p">(</span><span class="n">idadb</span><span class="p">,</span> <span class="s2">&quot;IRIS_DISC&quot;</span><span class="p">,</span> <span class="n">indexer</span><span class="o">=</span><span class="s2">&quot;ID&quot;</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[19]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">ibmdbpy.feature_selection</span> <span class="k">import</span> <span class="n">info_gain</span>
-<span class="n">info_gain</span><span class="p">(</span><span class="n">iris</span><span class="p">)</span> 
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>&gt; SELECT CAST(COUNT(*) AS INTEGER) FROM DB2INST1.IRIS_DISC
-&gt; SELECT SUM(-a*LOG(a)) FROM(SELECT COUNT(*) AS a FROM DB2INST1.IRIS_DISC GROUP BY &#34;SEPALLENGTH&#34;)
-&gt; SELECT SUM(-a*LOG(a)) FROM(SELECT COUNT(*) AS a FROM DB2INST1.IRIS_DISC GROUP BY &#34;SEPALWIDTH&#34;)
-&gt; SELECT SUM(-a*LOG(a)) FROM(SELECT COUNT(*) AS a FROM DB2INST1.IRIS_DISC GROUP BY &#34;SEPALLENGTH&#34;,&#34;SEPALWIDTH&#34;)
-&gt; SELECT SUM(-a*LOG(a)) FROM(SELECT COUNT(*) AS a FROM DB2INST1.IRIS_DISC GROUP BY &#34;PETALLENGTH&#34;)
-&gt; SELECT SUM(-a*LOG(a)) FROM(SELECT COUNT(*) AS a FROM DB2INST1.IRIS_DISC GROUP BY &#34;SEPALLENGTH&#34;,&#34;PETALLENGTH&#34;)
-&gt; SELECT SUM(-a*LOG(a)) FROM(SELECT COUNT(*) AS a FROM DB2INST1.IRIS_DISC GROUP BY &#34;PETALWIDTH&#34;)
-&gt; SELECT SUM(-a*LOG(a)) FROM(SELECT COUNT(*) AS a FROM DB2INST1.IRIS_DISC GROUP BY &#34;SEPALLENGTH&#34;,&#34;PETALWIDTH&#34;)
-&gt; SELECT SUM(-a*LOG(a)) FROM(SELECT COUNT(*) AS a FROM DB2INST1.IRIS_DISC GROUP BY &#34;CLASS&#34;)
-&gt; SELECT SUM(-a*LOG(a)) FROM(SELECT COUNT(*) AS a FROM DB2INST1.IRIS_DISC GROUP BY &#34;SEPALLENGTH&#34;,&#34;CLASS&#34;)
-&gt; SELECT SUM(-a*LOG(a)) FROM(SELECT COUNT(*) AS a FROM DB2INST1.IRIS_DISC GROUP BY &#34;SEPALWIDTH&#34;,&#34;PETALLENGTH&#34;)
-&gt; SELECT SUM(-a*LOG(a)) FROM(SELECT COUNT(*) AS a FROM DB2INST1.IRIS_DISC GROUP BY &#34;SEPALWIDTH&#34;,&#34;PETALWIDTH&#34;)
-&gt; SELECT SUM(-a*LOG(a)) FROM(SELECT COUNT(*) AS a FROM DB2INST1.IRIS_DISC GROUP BY &#34;SEPALWIDTH&#34;,&#34;CLASS&#34;)
-&gt; SELECT SUM(-a*LOG(a)) FROM(SELECT COUNT(*) AS a FROM DB2INST1.IRIS_DISC GROUP BY &#34;PETALLENGTH&#34;,&#34;PETALWIDTH&#34;)
-&gt; SELECT SUM(-a*LOG(a)) FROM(SELECT COUNT(*) AS a FROM DB2INST1.IRIS_DISC GROUP BY &#34;PETALLENGTH&#34;,&#34;CLASS&#34;)
-&gt; SELECT SUM(-a*LOG(a)) FROM(SELECT COUNT(*) AS a FROM DB2INST1.IRIS_DISC GROUP BY &#34;PETALWIDTH&#34;,&#34;CLASS&#34;)
-Execution time: 2.4338090419769287 seconds.
-</pre>
-</div>
-</div>
-
-<div class="output_area"><div class="prompt output_prompt">Out[19]:</div>
-
-<div class="output_html rendered_html output_subarea output_execute_result">
-<div>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>SEPALLENGTH</th>
-      <th>SEPALWIDTH</th>
-      <th>PETALLENGTH</th>
-      <th>PETALWIDTH</th>
-      <th>CLASS</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>SEPALLENGTH</th>
-      <td>NaN</td>
-      <td>0.163915</td>
-      <td>0.708674</td>
-      <td>0.675541</td>
-      <td>0.652284</td>
-    </tr>
-    <tr>
-      <th>SEPALWIDTH</th>
-      <td>0.163915</td>
-      <td>NaN</td>
-      <td>0.381823</td>
-      <td>0.397607</td>
-      <td>0.376050</td>
-    </tr>
-    <tr>
-      <th>PETALLENGTH</th>
-      <td>0.708674</td>
-      <td>0.381823</td>
-      <td>NaN</td>
-      <td>1.346137</td>
-      <td>1.356545</td>
-    </tr>
-    <tr>
-      <th>PETALWIDTH</th>
-      <td>0.675541</td>
-      <td>0.397607</td>
-      <td>1.346137</td>
-      <td>NaN</td>
-      <td>1.378403</td>
-    </tr>
-    <tr>
-      <th>CLASS</th>
-      <td>0.652284</td>
-      <td>0.376050</td>
-      <td>1.356545</td>
-      <td>1.378403</td>
-      <td>NaN</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div></section></section><section><section>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Performance-comparison">Performance comparison<a class="anchor-link" href="#Performance-comparison">&#182;</a></h2>
+<ul>
+<li>3x Speed-up !</li>
+</ul>
+<div align = left>
+<img width = 1050 src="img/cache_evaluation.png">
+</div>
+</div>
+</div>
+</div></section><section>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Heuristic-n&#176;3:-Use-Database-Statistics">Heuristic n&#176;3: Use Database Statistics<a class="anchor-link" href="#Heuristic-n&#176;3:-Use-Database-Statistics">&#182;</a></h3><p>IBM dashDB maintains meta data about tables</p>
+<ul>
+<li>Frequency counts, aggregate values...</li>
+</ul>
+<p>Replace subquery:</p>
+<div align = left>
+<img width = 1050 src="img/class-occurence.png">
+</div>
 </div>
 </div>
 </div></section><section>
@@ -13352,12 +12840,8 @@ Execution time: 2.4338090419769287 seconds.
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div align = left>
-<img width = 600 src="img/covariance_matrix_smooth.png">
-</div><ul>
-<li>In-Database: IBM dashDB entry plan</li>
-<li>In-Memory: Notebook, i5 2.6GHz - 16GB RAM</li>
-</ul>
-
+<img width = 1050 src="img/evaluation-stats.png">
+</div>
 </div>
 </div>
 </div></section></section><section><section>
@@ -13366,59 +12850,32 @@ Execution time: 2.4338090419769287 seconds.
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Deployment">Deployment<a class="anchor-link" href="#Deployment">&#182;</a></h2>
+<h2 id="Performance-Evaluation">Performance Evaluation<a class="anchor-link" href="#Performance-Evaluation">&#182;</a></h2><p><br></p>
+<div align = center>
+<img width = 350 src="img/setup-experiment.png">
 </div>
 </div>
 </div>
+</div></section><section>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<ul>
-<li>Distribution via PyPI 
-<pre><code>  pip install ibmdbpy</code></pre>
-</li>
-</ul>
-<ul>
-<li>Available on GitHub: <a href="https://github.com/ibmdbanalytics/ibmdbpy">https://github.com/ibmdbanalytics/ibmdbpy</a> <ul>
-<li>License : BSD</li>
-<li>Version : 0.1.3 (September 2016)</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li>Documentation: <a href="http://pythonhosted.org/ibmdbpy/">http://pythonhosted.org/ibmdbpy/</a></li>
-</ul>
-
+<div align = center>
+<img width = 1300 src="img/scalability_plot.png">
 </div>
 </div>
-</div></section></section><section><section>
+</div>
+</div></section><section>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Possible-extensions">Possible extensions<a class="anchor-link" href="#Possible-extensions">&#182;</a></h2><ul>
-<li>New features:<ul>
-<li>In-Database Feature Selection</li>
-<li>In-Database Geospatial Analytics</li>
-</ul>
-</li>
-<li>More features (todo): <ul>
-<li>Merge, sampling</li>
-<li>Grouping </li>
-<li>More ML wrappers<ul>
-<li>Sequential patterns</li>
-<li>Linear regression</li>
-<li>Decisions trees, Regression trees</li>
-<li>k-NN</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
+<div align = center>
+<img width = 700 src="img/comparing_pearson_correlation.png">
+</div>
 </div>
 </div>
 </div></section></section><section><section>
@@ -13428,33 +12885,9 @@ Execution time: 2.4338090419769287 seconds.
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Conclusion">Conclusion<a class="anchor-link" href="#Conclusion">&#182;</a></h2><ul>
-<li>Ibmdbpy is an interface for in-database computing<ul>
-<li>Python / IBM dashDB</li>
-</ul>
-</li>
-<li>No data extraction required<ul>
-<li>Data freshness</li>
-<li>Security</li>
-</ul>
-</li>
-<li>Intuitive: Pandas-like, Sklearn-like syntax</li>
-<li>Shows great performance on "big" datasets</li>
-<li>Nice tool for further applications: Feature Selection, Geospatial</li>
-</ul>
-
-</div>
-</div>
-</div></section><section>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<ul>
-<li><strong>Drawbacks:</strong><ul>
-<li>Requires to connect to a remote database instance</li>
-<li>Designed only for IBM dashDB / IBM DB2</li>
-<li>Covers only a small part of Python analytics capabilities</li>
+<li>We were able to map feature selection algorithms to databases<ul>
+<li>Take the best out of SQL and high-level languages</li>
+<li>Heuristics can be used to speed up the computation</li>
 </ul>
 </li>
 </ul>
@@ -13468,7 +12901,27 @@ Execution time: 2.4338090419769287 seconds.
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <ul>
-<li>Note: For R users, use <strong>ibmdbR</strong>  </li>
+<li>Pros:<ul>
+<li>Data stays where it is</li>
+<li>Scalability to big data sets</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div></div><div class="fragment">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Cons:<ul>
+<li>Require to connect to a remote database instance</li>
+<li>Current implementation only works with IBM dashDB</li>
+</ul>
+</li>
 </ul>
 
 </div>
@@ -13479,7 +12932,21 @@ Execution time: 2.4338090419769287 seconds.
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Thank-you-for-your-attention-!">Thank you for your attention !<a class="anchor-link" href="#Thank-you-for-your-attention-!">&#182;</a></h2><p>Any questions, suggestions ?</p>
+<h3 id="Possible-Extensions">Possible Extensions<a class="anchor-link" href="#Possible-Extensions">&#182;</a></h3><ul>
+<li>Develop interface with existing feature subset algorithms</li>
+<li>What if the data is not maintained in a single table? </li>
+<li>Parallel execution of SQL queries </li>
+</ul>
+
+</div>
+</div>
+</div></section></section><section><section>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Thank-you-for-your-attention-!">Thank you for your attention !<a class="anchor-link" href="#Thank-you-for-your-attention-!">&#182;</a></h2><p>Any questions ?</p>
 
 </div>
 </div>
@@ -13490,7 +12957,8 @@ Execution time: 2.4338090419769287 seconds.
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h4 id="Contact">Contact<a class="anchor-link" href="#Contact">&#182;</a></h4><ul>
-<li>FOUCHE@de.ibm.com</li>
+<li>edouard.fouche@student.kit.edu</li>
+<li><a href="http://edouardfouche.com">http://edouardfouche.com</a> <br></li>
 </ul>
 <div align = right><img width = 200 src="img/IBM.png"></div>
 </div>
@@ -13501,8 +12969,82 @@ Execution time: 2.4338090419769287 seconds.
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Bibliography">Bibliography<a class="anchor-link" href="#Bibliography">&#182;</a></h2><ul>
+<li><p>[1] Huan Liu and Hiroshi Motoda. “Feature Selection for Knowledge Discovery and Data
+Mining”. isbn: 079238198X.</p>
+</li>
+<li><p>[2] Edda Leopold and Jörg Kindermann. “Text Categorization with Support Vector
+Machines. How to Represent Texts in Input Space?” url: <a href="http://dx.doi.org/10.1023/A:1012491419635">http://dx.doi.org/10.1023/A:1012491419635</a></p>
+</li>
+<li><p>[3] Eric P. Xing, Michael I. Jordan, and Richard M. Karp. “Feature Selection for Highdimensional
+Genomic Microarray Data”. ICML ’01.</p>
+</li>
+<li><p>[4] Guyon Isabelle and Elissee André. “An Introduction to Variable and Feature Selection”.
+In: Journal of Machine Learning Research 3 (2003), pp. 1157–1182.</p>
+</li>
+<li><p>[5] Hall Mark A. “Correlation-based Feature Selection for Machine Learning”. PhD
+thesis. University of Waikato.</p>
+</li>
+<li><p>[6] Samuel H Huang. “Supervised feature selection: A tutorial”. In: Articial Intelligence
+Research 4.2 (2015), p22.</p>
+</li>
+</ul>
+
+</div>
+</div>
+</div></section></section><section><section>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Additional-material">Additional material<a class="anchor-link" href="#Additional-material">&#182;</a></h2>
+</div>
+</div>
+</div></section><section>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><div align = left>
+<img width = 600 src="img/bluemix_dash.png">
+</div></p>
+<ul>
+<li>Cloud-based data warehousing system</li>
+<li>Optimized for analytics and data mining</li>
+<li>Integrates BLU technology<ul>
+<li>Data compression</li>
+<li>In-memory column store</li>
+<li>Massive Parallel Processing (MPP) scale-out</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Free licenses for academia via onthehub</li>
+</ul>
+
+</div>
+</div>
+</div></section><section>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <div align = center>
-<img width = 1000 src="img/disclaimer_1.png">
+<img width = 650 src="img/workflow_num_2.png">
+</div>
+</div>
+</div>
+</div></section><section>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div align = center>
+<img width = 800 src="img/top10-analytics-data-mining-software-2015_2.png">
 </div>
 </div>
 </div>
@@ -13513,7 +13055,18 @@ Execution time: 2.4338090419769287 seconds.
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div align = center>
-<img width = 1000 src="img/disclaimer_2.png">
+<img width = 700 src="img/disclaimer_1.png">
+</div>
+</div>
+</div>
+</div></section></section><section><section>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div align = center>
+<img width = 700 src="img/disclaimer_2.png">
 </div>
 </div>
 </div>
